@@ -4,6 +4,7 @@ pragma solidity >=0.8.2 <0.9.0;
 import "hardhat/console.sol";
 
 contract Biblioteca261784 {
+
     // Contrato desplegado en la Parte 1
     address public dirContrato = 0xd9145CCE52D386f254917e481eB44e9943F39138;
 
@@ -11,10 +12,16 @@ contract Biblioteca261784 {
         uint256 id;
         string titulo;
         string autor;
-        bool estado;
+        bool estado; 
     }
 
-    Libro[] public libros;
+    // Reemplazo de array por mapping
+    mapping(uint256 => Libro) public libros;
+    
+    uint256 public cantidad;
+    
+    // Arreglo para guardar IDs y mapping
+    uint256[] public listaIds;
 
     // Modificador para centralizar el mensaje
     modifier mensajeEjecucion() {
@@ -22,42 +29,38 @@ contract Biblioteca261784 {
         _;
     }
 
-    // Se agrega el modificador
-    constructor() mensajeEjecucion {}
+    constructor() mensajeEjecucion {
+    }
 
-    // Se agrega modificador, validaciones y el nuevo parámetro _estado
-    function agregarElemento(
-        uint256 _id,
-        string memory _titulo,
-        string memory _autor,
-        bool _estado
-    ) public mensajeEjecucion {
-        // Validación de ID repetido
-        for (uint i = 0; i < libros.length; i++) {
-            require(libros[i].id != _id, "Error: ID repetido");
-        }
+    function agregarElemento(uint256 _id, string memory _titulo, string memory _autor, bool _estado) public mensajeEjecucion {
+        
+        // Validación usando mapping
+        require(bytes(libros[_id].titulo).length == 0, "Error: ID repetido");
 
-        // Validación de atributo de Parte 1 (titulo no vacio)
+        // Validación de atributo de Parte 1
         require(bytes(_titulo).length > 0, "Error: Titulo vacio");
 
-        libros.push(Libro(_id, _titulo, _autor, _estado));
+        // Guardado en mapping
+        libros[_id] = Libro(_id, _titulo, _autor, _estado);
+        listaIds.push(_id);
+        
+        cantidad++;
     }
 
-    // Contar elementos
     function contarElementos() public view mensajeEjecucion returns (uint256) {
-        return libros.length;
+        return cantidad;
     }
 
-    // Inactivar elemento por posicion
-    function inactivarElemento(uint _posicion) public mensajeEjecucion {
-        libros[_posicion].estado = false;
+    // Modificación para trabajar con el ID en el mapping
+    function inactivarElemento(uint256 _id) public mensajeEjecucion {
+        libros[_id].estado = false;
     }
 
-    // Mostrar en log solo elementos con estado true (Por terminar en 8)
     function pintarElementosActivos() public view mensajeEjecucion {
-        for (uint i = 0; i < libros.length; i++) {
-            if (libros[i].estado == true) {
-                console.log("Libro activo:", libros[i].id, libros[i].titulo);
+        for (uint i = 0; i < cantidad; i++) {
+            uint256 idActual = listaIds[i];
+            if (libros[idActual].estado == true) {
+                console.log("Libro activo:", libros[idActual].id, libros[idActual].titulo);
             }
         }
     }
