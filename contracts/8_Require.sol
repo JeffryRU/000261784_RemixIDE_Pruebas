@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.8.2 <0.9.0;
 
-contract Require{
+contract Require {
 
-    uint256 public numero =  261784; //Cambiar a valor 48   
+    uint256 public numero = 295856; //CambiarA a valor 48
     address private propietario;
 
     constructor() {
@@ -15,7 +15,8 @@ contract Require{
         numero = _num;
     }
 
-    function obtenerNumero() public view returns(uint256){
+    function obtenerNumero() public view returns(uint256) {
         return numero;
     }
+
 }

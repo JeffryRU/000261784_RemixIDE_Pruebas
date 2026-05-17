@@ -1,10 +1,10 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.8.2 <0.9.0;
 
 import "@openzeppelin/contracts@4.9.3/utils/Counters.sol";
 
 contract Intro {
-
+    
     uint256 private cantidad;
     string public nombre = "Upao";
 
@@ -23,4 +23,6 @@ contract Intro {
     function obtenerSuma(uint256 primero, uint256 segundo) public pure returns(uint256){
         return primero + segundo;
     }
+
+
 }

@@ -5,16 +5,14 @@ import "hardhat/console.sol";
 
 contract Consola {
 
-    event Debug(string mensaje, address invocador);
+    //event Debug(string mensaje, address invocador);
 
-    uint256 private cantidad = 261784;
+    uint256 private cantidad = 295856;
 
-    function consultarCantidad() public view returns(uint256){
+    function consultarCantidad() public view returns(uint256) {
         console.log("Consultada por: ", msg.sender);
         //emit Debug("Consultada por: ", msg.sender);
         return cantidad;
     }
-
-
 
 }

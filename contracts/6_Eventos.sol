@@ -5,17 +5,15 @@ contract Eventos {
 
     uint256 private cantidad = 10;
 
-    event CambioValorCantidad(address invocador, uint256 valorAnterior, uint256 nuevoValor);
+    event CambioValorCantidad(address invocador, uint256 nuevoValor);
 
     function cambiarCantidad(uint256 _cantidad) public {
-        uint256 valorAnterior = cantidad; 
-        
         cantidad = _cantidad;
-        
-        emit CambioValorCantidad(msg.sender, valorAnterior, _cantidad);
+        emit CambioValorCantidad(msg.sender, _cantidad);
     }
 
     function obtenerCantidad() public view returns (uint256) {
         return cantidad;
     }
+
 }

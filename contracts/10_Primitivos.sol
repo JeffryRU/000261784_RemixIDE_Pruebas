@@ -24,4 +24,5 @@ contract Primitivos {
     function generarClave(string memory texto) public {
         clave = keccak256(abi.encodePacked(texto));
     }
+
 }
