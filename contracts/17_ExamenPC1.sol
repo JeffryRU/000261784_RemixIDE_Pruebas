@@ -11,7 +11,7 @@ contract Biblioteca261784 {
         uint256 id;
         string titulo;
         string autor;
-        bool estado; // Disponible o no
+        bool estado;
     }
 
     Libro[] public libros;
@@ -22,9 +22,10 @@ contract Biblioteca261784 {
         _;
     }
 
-    // Modificador
+    // Se agrega el modificador
     constructor() mensajeEjecucion {}
 
+    // Se agrega modificador, validaciones y el nuevo parámetro _estado
     function agregarElemento(
         uint256 _id,
         string memory _titulo,
@@ -45,5 +46,19 @@ contract Biblioteca261784 {
     // Contar elementos
     function contarElementos() public view mensajeEjecucion returns (uint256) {
         return libros.length;
+    }
+
+    // Inactivar elemento por posicion
+    function inactivarElemento(uint _posicion) public mensajeEjecucion {
+        libros[_posicion].estado = false;
+    }
+
+    // Mostrar en log solo elementos con estado true (Por terminar en 8)
+    function pintarElementosActivos() public view mensajeEjecucion {
+        for (uint i = 0; i < libros.length; i++) {
+            if (libros[i].estado == true) {
+                console.log("Libro activo:", libros[i].id, libros[i].titulo);
+            }
+        }
     }
 }
